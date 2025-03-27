@@ -1,0 +1,97 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}TaskLink - Home{% endblock %}
+{% block content %}
+
+<!-- Header Section with Image -->
+<section id="home-header-section">
+    <div class="home-header-image-wrapper">
+        <img src="{% static 'images/tasklinkHome.jpg' %}" alt="TaskLink Home" class="home-header-image home-animate-scale-in">
+    </div>
+    <div class="home-header-overlay">
+        <h1 class="home-header-title home-animate-rotate-in">TaskLink</h1>
+        <p class="home-header-subtitle home-animate-slide-in">Bridging Skills and Opportunities</p>
+        <div class="home-header-cta home-animate-scale-in">
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_subscribed %}
+                    <a href="{% url 'profile' %}" class="home-cta-btn home-primary">View Profile</a>
+                    <a href="{% url 'services' %}" class="home-cta-btn home-secondary">Our Services</a>
+                {% else %}
+                    <a href="{% url 'subscribe' %}" class="home-cta-btn home-primary">Subscribe Today</a>
+                    <a href="{% url 'services' %}" class="home-cta-btn home-secondary">Preview Services</a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'register' %}" class="home-cta-btn home-primary">Join Now</a>
+                <a href="#home-benefits-section" class="home-cta-btn home-secondary">Discover More</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section id="home-benefits-section">
+    <h2 class="home-benefits-title home-animate-fade-in">What Makes TaskLink Special</h2>
+    <div class="home-benefits-flow">
+        <div class="home-benefit-item home-animate-slide-left">
+            <i class="fas fa-handshake home-benefit-icon"></i>
+            <h3 class="home-benefit-heading">Seamless Connections</h3>
+            <p class="home-benefit-text">Link up with verified professionals and employers effortlessly.</p>
+        </div>
+        <div class="home-benefit-item home-animate-slide-right">
+            <i class="fas fa-star home-benefit-icon"></i>
+            <h3 class="home-benefit-heading">Top Talent</h3>
+            <p class="home-benefit-text">Access a pool of skilled workers ready to excel.</p>
+        </div>
+        <div class="home-benefit-item home-animate-slide-left">
+            <i class="fas fa-clock home-benefit-icon"></i>
+            <h3 class="home-benefit-heading">Time-Saving</h3>
+            <p class="home-benefit-text">Fast matching to get you working sooner.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Voices Section -->
+<section id="home-voices-section">
+    <h2 class="home-voices-title home-animate-rotate-in">User Voices</h2>
+    <div class="home-voices-stream">
+        <div class="home-voice-entry home-animate-scale-in">
+            <p class="home-voice-quote">"TaskLink made finding gigs a breeze!"</p>
+            <span class="home-voice-author">- Jamie K., Designer</span>
+        </div>
+        <div class="home-voice-entry home-animate-scale-in">
+            <p class="home-voice-quote">"A game-changer for hiring seasonal help."</p>
+            <span class="home-voice-author">- Priya S., Manager</span>
+        </div>
+    </div>
+</section>
+
+<!-- Numbers Section -->
+<section id="home-numbers-section">
+    <div class="home-numbers-line home-animate-fade-in">
+        <div class="home-number-block">
+            <span class="home-number-value">150+</span>
+            <span class="home-number-label">Users</span>
+        </div>
+        <div class="home-number-block">
+            <span class="home-number-value">35+</span>
+            <span class="home-number-label">Subscriptions</span>
+        </div>
+        <div class="home-number-block">
+            <span class="home-number-value">4.8/5</span>
+            <span class="home-number-label">Rating</span>
+        </div>
+    </div>
+</section>
+
+<!-- Action Section -->
+<section id="home-action-section">
+    <div class="home-action-wrapper home-animate-slide-in">
+        <h2 class="home-action-heading">Take the Next Step</h2>
+        <p class="home-action-message">Be part of the TaskLink revolution.</p>
+        <a href="{% if request.user.is_authenticated %}{% url 'profile' %}{% else %}{% url 'register' %}{% endif %}" class="home-action-link">
+            {% if request.user.is_authenticated %}My Dashboard{% else %}Start Here{% endif %}
+        </a>
+    </div>
+</section>
+
+{% endblock %}

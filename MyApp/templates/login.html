@@ -1,0 +1,34 @@
+{% extends 'navbar.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <div class="login-main-content">
+        <h2 class="login-content-title">Login to TaskLink</h2>
+        
+        {% if messages %}
+            <div class="login-messages">
+                {% for message in messages %}
+                    <div class="login-alert {% if message.tags %}login-alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <form method="POST" class="login-form-container">
+            {% csrf_token %}
+            {% for field in form %}
+                <input 
+                    type="{{ field.field.widget.input_type }}" 
+                    name="{{ field.name }}" 
+                    id="login-{{ field.name }}" 
+                    placeholder="{{ field.label }}" 
+                    class="login-form-input" 
+                    value="{{ field.value|default:'' }}"
+                    {% if field.field.required %}required{% endif %}>
+                <div class="login-error">{{ field.errors }}</div>
+            {% endfor %}
+            <button type="submit" class="login-submit-btn">Login</button>
+        </form>
+        <p class="login-link-text">Don't have an account? <a href="{% url 'register' %}" class="login-action-link">Register here</a></p>
+    </div>
+{% endblock %}

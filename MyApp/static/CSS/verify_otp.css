@@ -1,0 +1,131 @@
+/* General reset for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main content container */
+#otp-main-content {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    padding: 20px;
+}
+
+/* OTP form container */
+#otp-form-wrapper {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading */
+#otp-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* Instruction text */
+#otp-instruction {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 25px;
+}
+
+/* Messages container */
+#otp-messages {
+    margin-bottom: 20px;
+}
+
+/* Alert styles for messages */
+.otp-alert {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.otp-alert.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.otp-alert.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Form styling */
+#otp-form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Input field */
+#id_otp {
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid #dfe6e9;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#id_otp:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+#id_otp::placeholder {
+    color: #b2bec3;
+}
+
+/* Submit button */
+#otp-submit-btn {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #3498db;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#otp-submit-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+#otp-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    #otp-form-wrapper {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    #otp-title {
+        font-size: 24px;
+    }
+
+    #otp-instruction {
+        font-size: 14px;
+    }
+}

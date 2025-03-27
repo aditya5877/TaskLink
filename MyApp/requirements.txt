@@ -1,0 +1,3 @@
+echo Django>=5.0 > requirements.txt
+echo razorpay>=1.4.1 >> requirements.txt
+echo setuptools>=70.0.0 >> requirements.txt

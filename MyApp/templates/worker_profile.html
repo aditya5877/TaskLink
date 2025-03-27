@@ -1,0 +1,62 @@
+<!-- worker_profile.html -->
+{% extends 'Navbar.html' %}
+{% block title %}{{ worker.username }}'s Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-back-button">
+        <a href="{% url 'services' %}" class="back-btn">← Back to Services</a>
+    </div>
+    <div class="profile-header">
+        {% if worker.profile_picture %}
+            <img src="{{ worker.profile_picture.url }}" alt="{{ worker.username }}" class="profile-image">
+        {% else %}
+            <div class="profile-initial">{{ worker.username|first|upper }}</div>
+        {% endif %}
+        <div class="profile-details">
+            <h2>{{ worker.username }}</h2>
+            <p class="profile-type">{{ worker.worker_type }}</p>
+            <p class="profile-location">{{ worker.location }}</p>
+            <p class="profile-experience">Experience: {{ worker.experience|default:"0" }} years</p>
+            <p class="profile-rating">Average Rating: {{ rating_avg|floatformat:1 }} / 5</p>
+            {% if is_subscribed and not is_worker %}
+                <p class="profile-contact">Contact: {{ worker.mobile_number }}</p>
+                <p class="profile-email">Email: {{ worker.email }}</p>
+            {% elif not is_subscribed and not is_worker %}
+                <p class="subscribe-prompt">Please <a href="{% url 'subscribe' %}">subscribe</a> to view contact details</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="reviews-container">
+        <h3>Reviews</h3>
+        {% if reviews %}
+            {% for review in reviews %}
+            <div class="review-card">
+                <p class="reviewer-name"><strong>{{ review.reviewer.username }}</strong></p>
+                <p class="review-rating">Rating: {{ review.rating }}/5</p>
+                <p class="review-comment">{{ review.comment }}</p>
+                <small class="review-date">{{ review.created_at|date:"F d, Y" }}</small>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-reviews">No reviews yet.</p>
+        {% endif %}
+
+        {% if is_subscribed and not is_worker %}
+            {% if has_reviewed %}
+                <p class="already-reviewed">Already Submitted A Review!</p>
+            {% else %}
+                <div class="review-form-container">
+                    <h4>Leave a Review</h4>
+                    <form method="POST" class="review-form">
+                        {% csrf_token %}
+                        {{ review_form.as_p }}
+                        <button type="submit" class="submit-review-btn">Submit Review</button>
+                    </form>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

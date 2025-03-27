@@ -1,0 +1,70 @@
+{% extends 'navbar.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    <div class="main-content">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" class="register-form-container">
+            {% csrf_token %}
+            <input type="text" name="username" id="id_username" class="register-form-input" placeholder="Username" value="{{ form.username.value|default:'' }}" required>
+            <div class="register-error">{{ form.username.errors }}</div>
+            <input type="text" name="first_name" id="id_first_name" class="register-form-input" placeholder="First Name" value="{{ form.first_name.value|default:'' }}" required>
+            <div class="register-error">{{ form.first_name.errors }}</div>
+            <input type="text" name="middle_name" id="id_middle_name" class="register-form-input" placeholder="Middle Name (optional)" value="{{ form.middle_name.value|default:'' }}">
+            <div class="register-error">{{ form.middle_name.errors }}</div>
+            <input type="text" name="last_name" id="id_last_name" class="register-form-input" placeholder="Last Name" value="{{ form.last_name.value|default:'' }}" required>
+            <div class="register-error">{{ form.last_name.errors }}</div>
+            <input type="number" name="age" id="id_age" class="register-form-input" placeholder="Age" min="18" value="{{ form.age.value|default:'' }}" required>
+            <div class="register-error">{{ form.age.errors }}</div>
+            <select name="gender" id="id_gender" class="register-form-input" required>
+                <option value="">Select Gender</option>
+                <option value="Male" {% if form.gender.value == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if form.gender.value == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if form.gender.value == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+            <div class="register-error">{{ form.gender.errors }}</div>
+            <input type="text" name="mobile_number" id="id_mobile_number" class="register-form-input" placeholder="Mobile Number" value="{{ form.mobile_number.value|default:'' }}" required>
+            <div class="register-error">{{ form.mobile_number.errors }}</div>
+            <input type="email" name="email" id="id_email" class="register-form-input" placeholder="Email" value="{{ form.email.value|default:'' }}" required>
+            <div class="register-error">{{ form.email.errors }}</div>
+            <input type="text" name="location" id="id_location" class="register-form-input" placeholder="Location" value="{{ form.location.value|default:'' }}" required>
+            <div class="register-error">{{ form.location.errors }}</div>
+            <label>
+                <input type="checkbox" name="is_worker" id="id_is_worker" class="register-form-checkbox" {% if form.is_worker.value %}checked{% endif %}>
+                Register as a worker
+            </label>
+            <div class="register-error">{{ form.is_worker.errors }}</div>
+            <div id="worker_fields" style="display: {% if form.is_worker.value %}block{% else %}none{% endif %};">
+                <input type="text" name="worker_type" id="id_worker_type" class="register-form-input" placeholder="Worker Type (e.g., Painter)" value="{{ form.worker_type.value|default:'' }}">
+                <div class="register-error">{{ form.worker_type.errors }}</div>
+                <input type="number" name="experience" id="id_experience" class="register-form-input" placeholder="Experience (years)" min="0" value="{{ form.experience.value|default:'' }}">
+                <div class="register-error">{{ form.experience.errors }}</div>
+                <label>
+                    <input type="checkbox" name="police_verification" id="id_police_verification" class="register-form-checkbox" {% if form.police_verification.value %}checked{% endif %}>
+                    Police Verification Done
+                </label>
+                <div class="register-error">{{ form.police_verification.errors }}</div>
+            </div>
+            <input type="password" name="password1" id="id_password1" class="register-form-input" placeholder="Password" required>
+            <div class="register-error">{{ form.password1.errors }}</div>
+            <input type="password" name="password2" id="id_password2" class="register-form-input" placeholder="Confirm Password" required>
+            <div class="register-error">{{ form.password2.errors }}</div>
+            <button type="submit" class="register-submit-btn">Register</button>
+        </form>
+        <p class="register-login-link">Already have an account? <a href="{% url 'login' %}" class="action-link">Login here</a></p>
+    </div>
+
+    <script>
+        document.getElementById('id_is_worker').addEventListener('change', function() {
+            document.getElementById('worker_fields').style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+{% endblock %}

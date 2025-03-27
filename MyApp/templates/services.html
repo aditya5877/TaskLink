@@ -1,0 +1,57 @@
+{% extends 'Navbar.html' %}
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<div class="services-container">
+    {% if not is_worker %}
+    <div class="services-header">
+        <h1>Find Your Perfect Worker</h1>
+        <p>Select a job role to connect with skilled professionals in your area.</p>
+    </div>
+
+    <div class="services-worker-type-selector">
+        <form method="GET" class="services-type-form">
+            <select name="worker_type" onchange="this.form.submit()">
+                <option value="">All Worker Types</option>
+                {% for type in worker_types %}
+                    <option value="{{ type }}" {% if type == selected_type %}selected{% endif %}>{{ type }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    <div class="services-workers-horizontal-container">
+        <div class="services-workers-grid">
+            {% if workers %}
+                {% for worker in workers %}
+                <a href="{% url 'worker_profile' worker.id %}" class="services-worker-card-link">
+                    <div class="services-worker-card {% if not selected_type %}services-featured-card{% endif %}">
+                        <div class="services-worker-card-header">
+                            {% if worker.profile_picture %}
+                                <img src="{{ worker.profile_picture.url }}" alt="{{ worker.username }}" class="services-worker-image">
+                            {% else %}
+                                <div class="services-worker-initial">{{ worker.username|first|upper }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="services-worker-card-body">
+                            <div>
+                                <h3>{{ worker.username }}</h3>
+                                <p class="services-worker-type">{{ worker.worker_type }}</p>
+                                <p class="services-worker-location">{{ worker.location }}</p>
+                            </div>
+                            <div>
+                                <p class="services-worker-experience">Experience: {{ worker.experience|default:"0" }} years</p>
+                                <p class="services-worker-rating">{{ worker_ratings|dictsort:worker.id|first|default:"Not rated" }} / 5</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <p class="services-no-workers">No workers available yet. Check back soon!</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

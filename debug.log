@@ -1,0 +1,22 @@
+Watching for file changes with StatReloader
+D:\TaskLink\TaskLink\MyApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+Internal Server Error: /services/
+Traceback (most recent call last):
+  File "D:\TaskLink\TaskLink\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\TaskLink\TaskLink\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\TaskLink\TaskLink\env\Lib\site-packages\django\contrib\auth\decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "D:\TaskLink\TaskLink\MyApp\views.py", line 51, in services
+    return render(request, 'services.html', context)@login_required
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for @: 'HttpResponse' and 'function'
+D:\TaskLink\TaskLink\MyApp\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\TaskLink\TaskLink\MyApp\forms.py changed, reloading.
+Watching for file changes with StatReloader
+D:\TaskLink\TaskLink\MyApp\admin.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader

@@ -1,0 +1,81 @@
+{% extends 'Navbar.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="about-page">
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1 class="hero-title">About TaskLink</h1>
+        <p class="hero-subtitle">Connecting Skilled Workers with Opportunities</p>
+    </section>
+
+    <!-- About TaskLink Section -->
+    <section class="about-section">
+        <h2 class="section-title">Who We Are</h2>
+        <p class="section-text">
+            TaskLink is an innovative online job portal designed to bridge the gap between employers and skilled workers. 
+            Whether you're an employer seeking reliable help for tasks like painting, cleaning, security, or driving, 
+            or a worker looking for opportunities that match your skillset, TaskLink is here to make the process fast, 
+            simple, and effective. Launched in 2025, we are committed to empowering communities by creating meaningful 
+            connections in the job market.
+        </p>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <h2 class="section-title">Our Services</h2>
+        <div class="services-container">
+            <div class="service-card">
+                <i class="fas fa-user-tie service-icon"></i>
+                <h3>For Employers</h3>
+                <p>
+                    Employers can easily find skilled workers for a variety of tasks. Subscribe to TaskLink, browse 
+                    worker profiles, and hire reliable help for jobs like painting, cleaning, security, driving, 
+                    and more—all in just a few clicks.
+                </p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-tools service-icon"></i>
+                <h3>For Workers</h3>
+                <p>
+                    Workers can register on TaskLink to showcase their skills and find tasks that suit their expertise. 
+                    Whether you’re a painter, driver, or cleaner, TaskLink connects you with employers who need your talents.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why TaskLink Section -->
+    <section class="why-tasklink-section">
+        <h2 class="section-title">Why Choose TaskLink?</h2>
+        <ul class="why-list">
+            <li><i class="fas fa-check-circle"></i> <strong>Fast & Efficient:</strong> Find workers or jobs in minutes, not days.</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Reliable Connections:</strong> Verified profiles ensure trust and quality.</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Wide Variety:</strong> From painting to security, we cover all kinds of skills.</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Local Focus:</strong> Serving Pune and Mumbai, we connect you with nearby opportunities.</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Simple Process:</strong> Easy registration and subscription for seamless access.</li>
+        </ul>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <h2 class="section-title">Where We Work</h2>
+        <p class="section-text">
+            TaskLink proudly serves the bustling cities of Pune and Mumbai, helping employers and workers connect locally.
+        </p>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04711156077!2d73.78056543154419!3d18.524598599502376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1742383215877!5m2!1sen!2sin" 
+                width="100%" 
+                height="480" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        
+    </section>
+</div>
+{% endblock %}

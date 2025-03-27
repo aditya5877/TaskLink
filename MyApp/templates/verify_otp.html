@@ -1,0 +1,28 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Verify OTP{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/verify_otp.css' %}">
+    <div class="main-content" id="otp-main-content">
+        <div id="otp-form-wrapper">
+            <h2 id="otp-title">Verify Your Email</h2>
+            <p id="otp-instruction">An OTP has been sent to your email. Please enter it below:</p>
+
+            {% if messages %}
+                <div id="otp-messages">
+                    {% for message in messages %}
+                        <div class="otp-alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="POST" class="otp-form-container" id="otp-form-container">
+                {% csrf_token %}
+                <input type="text" name="otp" id="id_otp" class="otp-form-input" placeholder="Enter OTP" required>
+                <button type="submit" class="otp-submit-btn" id="otp-submit-btn">Verify OTP</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

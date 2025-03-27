@@ -1,0 +1,24 @@
+<!-- D:\TaskLink\TaskLink\MyApp\templates\profile.html -->
+{% extends 'Navbar.html' %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>Your Profile</h2>
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+    <p><strong>Mobile:</strong> {{ request.user.mobile_number }}</p>
+    <p><strong>Location:</strong> {{ request.user.location|default:"Not set" }}</p>
+    <p><strong>Subscription Status:</strong> {% if request.user.is_subscribed %}Subscribed (Since: {{ subscription_date|date:"F d, Y" }}) {% else %}Not Subscribed{% endif %}</p>
+
+    <h3>Update Location</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="location">Address:</label>
+            <input type="text" id="location" name="location" value="{{ request.user.location|default:'' }}" required>
+        </div>
+        <button type="submit" class="update-btn">Update Location</button>
+    </form>
+</div>
+{% endblock %}

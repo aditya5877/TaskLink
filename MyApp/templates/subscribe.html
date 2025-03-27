@@ -1,0 +1,105 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Subscribe{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/subscribe.css' %}">
+    {% csrf_token %}
+    <div class="main-content" id="subscribe-main-content">
+        <div id="subscribe-form-wrapper">
+            <div class="subscribe-image-container">
+                <div class="subscribe-image-overlay">
+                    <h2 class="subscribe-image-text">Elevate Your Experience</h2>
+                    <p class="subscribe-image-subtext">Join thousands of TaskLink premium users today</p>
+                </div>
+            </div>
+            <div class="subscribe-form-container">
+                <h2 id="subscribe-title">Subscribe to TaskLink</h2>
+                <p id="subscribe-instruction">Unlock premium features for just ₹299/month!</p>
+
+                {% if messages %}
+                    <div id="subscribe-messages">
+                        {% for message in messages %}
+                            <div class="subscribe-alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="plan-card">
+                    <h3 class="plan-title">Monthly Subscription</h3>
+                    <p class="plan-price">₹299 <span class="plan-duration">/ month</span></p>
+                    <ul class="plan-features">
+                        <li>Access to premium services</li>
+                        <li>Priority support</li>
+                        <li>Exclusive worker tools</li>
+                        <li>Advanced task management</li>
+                        <li>Detailed analytics & insights</li>
+                    </ul>
+                    <button id="subscribe-btn" class="subscribe-submit-btn" data-amount="29900" data-user="{{ request.user.username }}">Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.getElementById('subscribe-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const amount = this.getAttribute('data-amount');
+            const username = this.getAttribute('data-user');
+            console.log('Amount Sent:', amount);  // Debug amount sent
+
+            const options = {
+                "key": "rzp_test_UseuEM9CE5roTD",
+                "amount": amount,
+                "currency": "INR",
+                "name": "TaskLink",
+                "description": "Monthly Subscription",
+                "image": "{% static 'images/logo.png' %}",
+                "handler": function (response) {
+                    console.log('Razorpay Response:', response);
+                    fetch('/subscribe_payment/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            payment_id: response.razorpay_payment_id,
+                            amount: amount
+                        })
+                    })
+                    .then(response => {
+                        console.log('Response Status:', response.status);
+                        if (!response.ok) throw new Error('Fetch failed');
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Server Response:', data);
+                        if (data.status === 'success') {
+                            alert('Subscription successful!');
+                            window.location.href = '{% url "home" %}';
+                        } else {
+                            alert('Payment verification failed. Please contact support.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch Error:', error);
+                        alert('An error occurred. Please try again.');
+                    });
+                },
+                "prefill": {
+                    "name": username,
+                    "email": "{{ request.user.email }}"
+                },
+                "theme": {
+                    "color": "#007bff"
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        });
+    </script>
+{% endblock %}
